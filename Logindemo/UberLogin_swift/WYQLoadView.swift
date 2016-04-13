@@ -8,10 +8,11 @@
 
 import UIKit
 
+
+
 class WYQLoadView: UIView {
 
     var blurView: UIVisualEffectView?
-    var isShowing: Bool?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -66,16 +67,21 @@ class WYQLoadView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    //单例
+    static let sharedInstance: WYQLoadView = WYQLoadView()
+
+    convenience init(TopTitle: String,BottomTitle: String) {
+        self.init()
+        print("走了几次了")
+        setUI()
+    }
+
+
     /**
      *  显示加载动画
      */
     func showLoadingView() {
 
-        if (isShowing != nil) {
-            // 如果没有退出动画，就不能继续添加
-            return
-        }
-        isShowing = true
         /// 拿到主窗口
         let window: UIWindow! = UIApplication.sharedApplication().keyWindow
         /// view的X
@@ -94,22 +100,8 @@ class WYQLoadView: UIView {
      */
     func dismissLoadingView() {
 
-        if isShowing == false {
-            return
-        }
-        isShowing = false
         self.removeFromSuperview()
 
-    }
-    /**
-     *  创建动画单例
-     *
-     *  @return iKYloadView
-     */
-    private static let instance = WYQLoadView()
-    /// 全局统一访问入口
-    internal class var shareLoadView: WYQLoadView {
-        return instance
     }
 
     /**
@@ -117,11 +109,6 @@ class WYQLoadView: UIView {
      */
     func showLoadingViewWithBlur() {
 
-        if (isShowing != nil) {
-            // 如果没有退出动画，就不能继续添加
-            return
-        }
-        isShowing = true
         /// 拿到主窗口
         let window: UIWindow! = UIApplication.sharedApplication().keyWindow
         /// view的X
@@ -141,18 +128,15 @@ class WYQLoadView: UIView {
         window.insertSubview(blurView!, belowSubview: self)
 
     }
-    
+
     /**
      *  关闭加载动画(带毛玻璃效果)
      */
     func dismissLoadingViewWithBlur() {
 
-        if isShowing == false {
-            return
-        }
-        isShowing = false
         blurView!.removeFromSuperview()
         self.removeFromSuperview()
-
+        
     }
+
 }

@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     }
 
     func getPlayItem()-> AVPlayerItem {
-        let filePath: String = NSBundle.mainBundle().pathForResource("BridgeLoop-640p", ofType: "mp4")!
+        let filePath: String = NSBundle.mainBundle().pathForResource("BridgeLoop", ofType: "mp4")!
         let url: NSURL = NSURL.fileURLWithPath(filePath)
         let playerItem: AVPlayerItem = AVPlayerItem.init(URL:url)
         return playerItem
@@ -126,12 +126,12 @@ class ViewController: UIViewController {
 
     func goToRegistUser() {
         self.view!.endEditing(true)
-        WYQLoadView.shareLoadView.showLoadingViewWithBlur()
-        self.performSelector(#selector(ViewController.removeLoadingView), withObject: self, afterDelay: 1.5)
+        WYQLoadView.sharedInstance.showLoadingViewWithBlur()
+        self.performSelector(#selector(ViewController.removeLoadingView), withObject: self, afterDelay: 4)
     }
 
     func removeLoadingView() {
-        WYQLoadView.shareLoadView.dismissLoadingViewWithBlur()
+        WYQLoadView.sharedInstance.dismissLoadingViewWithBlur()
         //    NSLog(@"%@",_loginView.userNameTextView.inputTextField.text);
         //    NSLog(@"%@",_loginView.passwordTextView.inputTextField.text);
         let str: String = "\(loginView!.userNameTextView!.inputTextField!.text!) \(loginView!.passwordTextView!.inputTextField!.text!)"
